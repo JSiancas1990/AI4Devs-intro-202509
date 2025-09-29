@@ -17,15 +17,16 @@ function invertirTexto() {
     const resultLabel = document.getElementById('resultLabel');
     const reverseBtn = document.getElementById('reverseBtn');
     
-    const inputText = textInput.value.trim();
+    const rawText = textInput.value;
+    const trimmedText = rawText.trim();
     
     // No mostrar mensaje de error, solo validar que hay suficientes caracteres
-    if (inputText === '' || inputText.length < 3) {
+    if (trimmedText === '' || trimmedText.length < 3) {
         return; // Salir silenciosamente
     }
 
-    // Aplicar la función de inversión usando el método 4
-    const reversedText = reverse_string(inputText);
+    // Aplicar la función de inversión usando el método 4 con el texto original (sin trim)
+    const reversedText = reverse_string(rawText);
     
     // Mostrar el resultado con animación
     resultLabel.className = 'fade-in';
@@ -51,8 +52,7 @@ function handleRealTimeInversion() {
         const inputText = textInput.value;
         
         if (inputText === '') {
-            resultLabel.textContent = 'El texto invertido aparecerá aquí...';
-            resultLabel.className = 'placeholder-text';
+            resultLabel.textContent = '';
         } else {
             const reversedText = reverse_string(inputText);
             resultLabel.className = 'fade-in';
@@ -70,14 +70,14 @@ function updateButtonState() {
     const reverseBtn = document.getElementById('reverseBtn');
     const realTimeCheck = document.getElementById('realTimeCheck');
     
-    const count = textInput.value.length;
+    const trimmedCount = textInput.value.trim().length;
     
     if (realTimeCheck && realTimeCheck.checked) {
         // Si está en modo tiempo real, deshabilitar el botón
         reverseBtn.disabled = true;
     } else {
-        // Si no está en modo tiempo real, habilitar según caracteres
-        reverseBtn.disabled = count < 3;
+        // Si no está en modo tiempo real, habilitar según caracteres trimmed
+        reverseBtn.disabled = trimmedCount < 3;
     }
 }
 
@@ -134,10 +134,9 @@ function initializeApp() {
         
         // Limpiar resultado cuando no hay tiempo real activo
         const realTimeCheck = document.getElementById('realTimeCheck');
-        if (!(realTimeCheck && realTimeCheck.checked) && resultLabel.textContent !== 'El texto invertido aparecerá aquí...') {
-            if (textInput.value.trim() === '') {
-                resultLabel.textContent = 'El texto invertido aparecerá aquí...';
-                resultLabel.className = 'placeholder-text';
+        if (!(realTimeCheck && realTimeCheck.checked)) {
+            if (textInput.value === '') {
+                resultLabel.textContent = '';
             }
         }
     });
@@ -151,9 +150,8 @@ function initializeApp() {
             handleRealTimeInversion();
         } else {
             // Volver al modo normal
-            if (textInput.value.trim() === '') {
-                resultLabel.textContent = 'El texto invertido aparecerá aquí...';
-                resultLabel.className = 'placeholder-text';
+            if (textInput.value === '') {
+                resultLabel.textContent = '';
             }
             // El resultado se mantiene si hay texto, pero ya no se actualiza en tiempo real
         }

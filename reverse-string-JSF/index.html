@@ -203,9 +203,10 @@
             background: rgba(102, 126, 234, 0.1);
             border-radius: 12px;
             border-left: 4px solid #667eea;
-            min-height: 80px;
+            height: 85px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 20px;
         }
 
         #resultLabel {
@@ -215,11 +216,16 @@
             word-break: break-word;
             line-height: 1.5;
             width: 100%;
+            white-space: pre-wrap;
+            text-align: left;
+            height: 65px;
+            overflow-y: auto;
         }
 
         .placeholder-text {
             color: #888;
             font-style: italic;
+            text-align: left;
         }
 
         .input-counter {
@@ -271,7 +277,6 @@
     </style>
 </head>
 <body>
-    <script src="script.js"></script>
     <div class="container">
         <h1>🔄 Invertir Texto</h1>
         
@@ -297,10 +302,11 @@
         </div>
 
         <div class="result-section">
-            <div id="resultLabel" class="placeholder-text">
-                El texto invertido aparecerá aquí...
+            <div id="resultLabel">
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
